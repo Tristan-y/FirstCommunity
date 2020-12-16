@@ -1,5 +1,6 @@
 package com.nowcoder.community.controller;
 
+import com.nowcoder.community.annotation.LoginRequired;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityUtil;
@@ -48,6 +49,7 @@ public class UserController {
      * 访问账号设置页面
      * @return
      */
+    @LoginRequired
     @RequestMapping(path = "/setting", method = RequestMethod.GET)
     public String getSettingPage() {
         return "/site/setting";
@@ -59,6 +61,7 @@ public class UserController {
      * @param model
      * @return
      */
+    @LoginRequired
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
     public String uploadHeader(MultipartFile headerImage, Model model) {
         if(headerImage == null) {
@@ -120,5 +123,34 @@ public class UserController {
             logger.error("读取头像失败：" + e.getMessage());
         }
     }
+
+    /**
+     * 修改用户密码
+     * @param oldPassword
+     * @param newPassword
+     * @param confirmPassword
+     * @param model
+     * @return
+     */
+    /*@RequestMapping(path = "/password", method = RequestMethod.POST)
+    public String updatePassword(String oldPassword, String newPassword, String confirmPassword, Model model) {
+        User user = hostHolder.getUser();
+        String password = user.getPassword();
+        if(password != oldPassword) {
+            model.addAttribute("oldPasswordError", "您输入的原始密码不正确！");
+            return "/site/setting";
+        }
+
+        if(newPassword != confirmPassword) {
+            model.addAttribute("newPasswordError", "两次输入的密码不一致！");
+            model.addAttribute("confirmPasswordError", "两次输入的密码不一致！");
+            return "/site/setting";
+        }
+
+        userService.updatePassword(user.getId(), newPassword);
+
+        return "redirect:/index";
+    }*/
+
 
 }
