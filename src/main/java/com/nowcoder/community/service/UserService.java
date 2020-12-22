@@ -203,6 +203,15 @@ public class UserService implements CommunityConstant {
     }
 
     /**
+     * 通过用户名查询用户业务
+     * @param username
+     * @return
+     */
+    public User findUserByName(String username) {
+        return userMapper.selectByName(username);
+    }
+
+    /**
      * 修改用户密码业务
      * @param userId
      * @param password
@@ -211,5 +220,7 @@ public class UserService implements CommunityConstant {
     /*public int updatePassword(int userId, String password) {
         return userMapper.updatePassword(userId, password);
     }*/
+
+
 
 }
